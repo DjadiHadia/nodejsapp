@@ -4,13 +4,13 @@ services:
   node_app:
     container_name: node_app
     build: .
-    image: test_app
+    image: application
     ports:
       - "8000:8000"
     environment:
       - PG_DB=rent_node_db
-      - PG_USER=hadia
-      - PG_PASSWORD=12345
+      - PG_USER=root
+      - PG_PASSWORD=secret
       - PG_HOST=node_db
     depends_on:
       - node_db
@@ -24,10 +24,10 @@ services:
       - "5432:5432"
     environment:
       - POSTGRES_DB=rent_node_db
-      - POSTGRES_USER=hadia
-      - POSTGRES_PASSWORD=12345
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
     volumes:
-      - node_db_data_v:/var/lib/postgresql/data
+      - node_db_data_vnew:/var/lib/postgresql/data
 
 volumes:
-  node_db_data_v: {}
+  node_db_data_vnew: {}

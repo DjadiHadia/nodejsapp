@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-db
+spec:
+  selector:
+    matchLabels:
+      app: node-db
+  template:
+    metadata:
+      labels:
+        app: node-db
+    spec:
+      containers:
+      - name: node-db
+        image: postgres:12
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5432

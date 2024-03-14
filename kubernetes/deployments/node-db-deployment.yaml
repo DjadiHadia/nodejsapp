@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-db
+  template:
+    metadata:
+      labels:
+        app: node-db
+    spec:
+      containers:
+      - name: node-db
+        image: postgres:12
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          value: rent_node_db
+        - name: POSTGRES_USER
+          value: root
+        - name: POSTGRES_PASSWORD
+          value: secret
+
+
+

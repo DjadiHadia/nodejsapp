@@ -10,6 +10,7 @@ exports.getCars = (req, res, next) => {
             res.status(200).json({ cars: cars });
         })
         .catch(err => console.log(err));
+        
 }
 
 //get user by id
@@ -86,35 +87,6 @@ exports.createCar = async (req, res, next) => {
       res.status(500).json({ message: 'Internal server error' });
   }
 };
-//update user
-exports.updateCar = (req, res, next) => {
-  const carId = req.params.carId;
-  const updatedregistration_number = req.body.registration_number;
-  const updatedbrand = req.body.brand;
-  const updatedcolor = req.body.color;
-  const updatedyear = req.body.year;
-  const updatedagencyId = req.body.agencyId;
-
-
-  Car.findByPk(carId)
-    .then(car => {
-      if (!car) {
-        return res.status(404).json({ message: 'Car not found!' });
-      }
-      car.registration_number = updatedregistration_number;
-      car.brand = updatedbrand;
-      car.color = updatedcolor;
-      car.year = updatedyear;
-      car.agencyId = updatedagencyId;
-     
-      return car.save();
-    })
-    .then(result => {
-      res.status(200).json({message: 'Car updated!', user: result});
-    })
-    .catch(err => console.log(err));
-}
-
 //delete user
 exports.deleteCar = (req, res, next) => {
   const carId = req.params.carId;
@@ -131,6 +103,34 @@ exports.deleteCar = (req, res, next) => {
     })
     .then(result => {
       res.status(200).json({ message: 'car deleted!' });
+    })
+    .catch(err => console.log(err));
+}
+
+//update user
+exports.updateCar = (req, res, next) => {
+  const carId = req.params.carId;
+  const updatedregistration_number = req.body.registration_number;
+  const updatedbrand = req.body.brand;
+  const updatedcolor = req.body.color;
+  const updatedyear = req.body.year;
+ 
+
+  Car.findByPk(carId)
+    .then(car => {
+      if (!car) {
+        return res.status(404).json({ message: 'Car not found!' });
+      }
+      car.registration_number = updatedregistration_number;
+      car.brand = updatedbrand;
+      car.color = updatedcolor;
+      car.year = updatedyear;
+      
+     
+      return car.save();
+    })
+    .then(result => {
+      res.status(200).json({message: 'Car updated!', car: result});
     })
     .catch(err => console.log(err));
 }
